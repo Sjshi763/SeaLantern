@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  variant?: "primary" | "secondary" | "ghost" | "danger";
+  variant?: "primary" | "secondary" | "ghost" | "danger" | "success";
   size?: "sm" | "md" | "lg";
   disabled?: boolean;
   loading?: boolean;
@@ -107,6 +107,16 @@ withDefaults(defineProps<Props>(), {
 }
 
 .sl-button--danger:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.sl-button--success {
+  background: var(--sl-success);
+  color: var(--sl-text-inverse);
+}
+
+.sl-button--success:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
