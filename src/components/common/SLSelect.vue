@@ -371,7 +371,7 @@ onUnmounted(() => {
 }
 
 :root[data-theme="light"] .sl-select-dropdown {
-  background: #ffffff;
+  background: var(--sl-surface, #ffffff);
 }
 
 :root[data-acrylic="true"][data-theme="dark"] .sl-select-dropdown {
