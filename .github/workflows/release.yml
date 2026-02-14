@@ -10,9 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  publish-tauri:
-    permissions:
-      contents: write
+  build:
     strategy:
       fail-fast: false
       matrix:
@@ -52,7 +50,31 @@ jobs:
       - name: 安装前端依赖
         run: bun install
 
-      - name: 构建与发布
+      - name: 构建应用
+        run: bun tauri build ${{ matrix.args }}
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.platform }}-${{ matrix.args }}
+          path: |
+            src-tauri/target/release/bundle/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 下载所有构建产物
+        uses: actions/download-artifact@v3
+
+      - name: 提取版本号
+        run: echo "APP_VERSION=$(jq -r .version src-tauri/tauri.conf.json)" >> $GITHUB_ENV
+
+      - name: 创建 Release
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -65,4 +87,4 @@ jobs:
             请在此处添加发布说明。
           releaseDraft: true
           prerelease: false
-          args: ${{ matrix.args }}
+
