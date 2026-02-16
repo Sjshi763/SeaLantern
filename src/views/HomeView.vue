@@ -612,10 +612,11 @@ function handleAnimationEnd(event: AnimationEvent) {
 
         <div class="server-card-actions">
           <SLButton
-            v-if="store.statuses[server.id]?.status !== 'Running'"
+            v-if="store.statuses[server.id]?.status === 'Stopped' || store.statuses[server.id]?.status === 'Error' || !store.statuses[server.id]?.status"
             variant="primary"
             size="sm"
             :loading="actionLoading[server.id]"
+            :disabled="actionLoading[server.id] || store.statuses[server.id]?.status === 'Stopping'"
             @click="handleStart(server.id)"
             >{{ i18n.t("home.start") }}</SLButton
           >
@@ -624,6 +625,7 @@ function handleAnimationEnd(event: AnimationEvent) {
             variant="danger"
             size="sm"
             :loading="actionLoading[server.id]"
+            :disabled="actionLoading[server.id] || store.statuses[server.id]?.status === 'Stopping'"
             @click="handleStop(server.id)"
             >{{ i18n.t("home.stop") }}</SLButton
           >

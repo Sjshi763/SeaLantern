@@ -61,7 +61,11 @@
   },
   "create": {
     "title": "建立伺服器",
+    "startup_mode": "啟動方式",
     "jar_file": "服務端 JAR 檔案",
+    "bat_file": "服務端 BAT 檔案",
+    "sh_file": "服務端 SH 檔案",
+    "select_startup_file": "請選擇服務端 {{mode}} 檔案",
     "browse": "瀏覽",
     "scan": "掃描",
     "java_version": "Java 版本",

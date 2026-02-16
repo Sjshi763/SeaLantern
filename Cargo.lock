@@ -4046,6 +4046,7 @@ version = "0.5.0"
 dependencies = [
  "chrono",
  "dirs-next",
+ "encoding_rs",
  "font-kit",
  "futures",
  "indicatif",
